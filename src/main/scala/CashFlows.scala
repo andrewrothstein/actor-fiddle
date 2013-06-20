@@ -1,3 +1,6 @@
+import date.DateCalc
+import date.Date
+
 case class CashFlows(slices :List[RealizedFlow])
 
 object CashFlows {
