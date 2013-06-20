@@ -1,0 +1,4 @@
+
+trait Aggregable[T] {
+	
+}
