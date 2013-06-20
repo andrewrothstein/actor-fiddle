@@ -1,6 +1,6 @@
 package date
 
-case class Date(year: Int, month: Int, day: Int) {
+case class Date(year: Int, month: Int, day: Int = 1) {
   def julian = Date.julian(year, month, day)
 }
 
