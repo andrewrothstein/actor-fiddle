@@ -20,8 +20,9 @@ object Date {
   }
 
   def julian(year: Int, month: Int, day: Int) = {
-    val daysFromYears = if (year > 1) (0 /: (0 to year - 1))(_ + daysInYear(_)) else 0
-    val daysFromMonths = if (month > 1) (0 /: (0 to month - 1))(_ + daysInMonth(year, _)) else 0
+    val daysFromYears = if (year > 0) (0 /: (0 to year - 1))(_ + daysInYear(_)) else 0
+    val daysFromMonths = if (month > 1) (0 /: (1 to month - 1))(_ + daysInMonth(year, _)) else 0
+//    println("year=" + year + ",month=" + month + ",day=" + day + " => " + daysFromYears + " + " + daysFromMonths + " + " + day)
     daysFromYears + daysFromMonths + day
   }
 
