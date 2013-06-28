@@ -19,12 +19,19 @@ object Date {
     case _ => 31
   }
 
-  def julian(year: Int, month: Int, day: Int) = {
-    val daysFromYears = if (year > 0) (0 /: (0 to year - 1))(_ + daysInYear(_)) else 0
-    val daysFromMonths = if (month > 1) (0 /: (1 to month - 1))(_ + daysInMonth(year, _)) else 0
-//    println("year=" + year + ",month=" + month + ",day=" + day + " => " + daysFromYears + " + " + daysFromMonths + " + " + day)
-    daysFromYears + daysFromMonths + day
-  }
+  private def daysFromYears(year :Int) = if (year > 0) (0 /: (0 to year - 1))(_ + daysInYear(_)) else 0
 
+  private def daysFromMonths(year :Int, month :Int) = if (month > 1) (0 /: (1 to month - 1))(_ + daysInMonth(year, _)) else 0
+  
+  private val julianDaysShortcutUpper = 5000
+  private lazy val julianDaysShortcut = (0 to julianDaysShortcutUpper) map (s => daysFromYears(s)) toArray
+  
+  def julian(year :Int, month :Int, day :Int) = {
+    val dfy = if (year <= julianDaysShortcutUpper) julianDaysShortcut(year) else daysFromYears(year)
+    val dfm = daysFromMonths(year, month)
+//    println("year=" + year + ",month=" + month + ",day=" + day + " => " + dfy + " + " + dfm + " + " + day)
+    dfy + dfm + day
+  }
+  
   def daysBetween(d1: Date, d2: Date) = d2.julian - d1.julian
 }
