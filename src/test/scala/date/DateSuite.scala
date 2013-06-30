@@ -40,4 +40,11 @@ class DateSuite extends FunSuite {
     assert(Date(2000, Feb, 15).eom equals Date(2000, Feb, 29))
     assert(Date(2013, Feb, 15).eom equals Date(2013, Feb, 28))
   }
+  
+  test ("asYYYYMMDD") {
+    assert(Date(1978, Nov, 14).asYYYYMMDD == 19781114)
+    assert(Date(2013, Jan, 15).asYYYYMMDD == 20130115)
+    assert(Date(2013, Feb, 28).asYYYYMMDD == 20130228)
+ 
+  }
 }

@@ -5,6 +5,7 @@ case class Date(year: Int, month: MonthOfYear, day: Int = 1) {
   private lazy val dim = Date.daysInMonth(year, month)
   def eom = if (day == dim) this else Date(year, month, dim)
   override def toString = day + "-" + month + "-" + year
+  def asYYYYMMDD = year * 10000 + month.asInt * 100 + day
 }
 
 object Date {
