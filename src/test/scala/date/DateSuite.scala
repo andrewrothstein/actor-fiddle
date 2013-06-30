@@ -14,24 +14,30 @@ class DateSuite extends FunSuite {
   }
   
   test ("days in months") {
-    assert(Date.daysInMonth(2000, 1) == 31)
-    assert(Date.daysInMonth(2000, 2) == 29)
-    assert(Date.daysInMonth(2013, 6) == 30)
-    assert(Date.daysInMonth(2013, 7) == 31)
+    assert(Date.daysInMonth(2000, Jan) == 31)
+    assert(Date.daysInMonth(2000, Feb) == 29)
+    assert(Date.daysInMonth(2013, Jun) == 30)
+    assert(Date.daysInMonth(2013, Jul) == 31)
   }
 
   test ("julian dates") {
-    assert(Date(0, 1, 1).julian == 1)
-    assert(Date(0, 1, 2).julian == 2)
-    assert(Date(0, 1, 3).julian == 3)
-    assert(Date(0, 2, 1).julian == 32)
-    assert(Date(1, 1, 1).julian == 367)
+    assert(Date(0, Jan, 1).julian == 1)
+    assert(Date(0, Jan, 2).julian == 2)
+    assert(Date(0, Jan, 3).julian == 3)
+    assert(Date(0, Feb, 1).julian == 32)
+    assert(Date(1, Jan, 1).julian == 367)
   }
   
   test ("date diffs") {
-    assert(Date.daysBetween(Date(2000, 1, 1), Date(2000, 1, 2)) == 1)
-    assert(Date.daysBetween(Date(2000, 1, 1), Date(2001, 1, 1)) == 366)
-    assert(Date.daysBetween(Date(2013, 6, 1), Date(2013, 7, 1)) == 30)
-    assert(Date.daysBetween(Date(2000, 1, 1), Date(2000, 2, 1)) == 31)
+    assert(Date.daysBetween(Date(2000, Jan, 1), Date(2000, Jan, 2)) == 1)
+    assert(Date.daysBetween(Date(2000, Jan, 1), Date(2001, Jan, 1)) == 366)
+    assert(Date.daysBetween(Date(2013, Jun, 1), Date(2013, Jul, 1)) == 30)
+    assert(Date.daysBetween(Date(2000, Jan, 1), Date(2000, Feb, 1)) == 31)
+  }
+  
+  test ("eom") {
+    assert(Date(2013, Jan, 15).eom equals Date(2013, Jan, 31))
+    assert(Date(2000, Feb, 15).eom equals Date(2000, Feb, 29))
+    assert(Date(2013, Feb, 15).eom equals Date(2013, Feb, 28))
   }
 }
