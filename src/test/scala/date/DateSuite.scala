@@ -45,6 +45,15 @@ class DateSuite extends FunSuite {
     assert(Date(1978, Nov, 14).asYYYYMMDD == 19781114)
     assert(Date(2013, Jan, 15).asYYYYMMDD == 20130115)
     assert(Date(2013, Feb, 28).asYYYYMMDD == 20130228)
- 
+  }
+  
+  test ("months diff") {
+    assert(Date.monthsBetween(Date(1978, Nov), Date(1978, Nov)) == 0)
+    assert(Date.monthsBetween(Date(1978, Nov), Date(1978, Dec)) == 1)
+    assert(Date.monthsBetween(Date(1978, Dec), Date(1978, Nov)) == -1)
+    assert(Date.monthsBetween(Date(1978, Nov), Date(1979, Oct)) == 11)
+    assert(Date.monthsBetween(Date(1979, Oct), Date(1978, Nov)) == -11)
+    assert(Date.monthsBetween(Date(1978, Oct), Date(1979, Oct)) == 12)
+    assert(Date.monthsBetween(Date(1979, Oct), Date(1978, Oct)) == -12)
   }
 }

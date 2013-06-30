@@ -3,7 +3,8 @@ package date
 case class Date(year: Int, month: MonthOfYear, day: Int = 1) {
   def julian = Date.julian(year, month, day)
   private lazy val dim = Date.daysInMonth(year, month)
-  def eom = if (day == dim) this else Date(year, month, dim)
+  def isEOM = day == dim
+  def eom = if (isEOM) this else Date(year, month, dim)
   override def toString = day + "-" + month + "-" + year
   def asYYYYMMDD = year * 10000 + month.asInt * 100 + day
 }
@@ -38,4 +39,5 @@ object Date {
   }
   
   def daysBetween(d1: Date, d2: Date) = d2.julian - d1.julian
+  def monthsBetween(d1 :Date, d2 :Date) = 12 * (d2.year - d1.year) + (d2.month.asInt - d1.month.asInt)
 }
