@@ -1,5 +1,6 @@
-import org.scalatest._
+package date
 
+import org.scalatest._
 import date._
 
 class DateSuite extends FunSuite {
