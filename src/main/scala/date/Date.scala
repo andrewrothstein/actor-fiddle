@@ -2,11 +2,46 @@ package date
 
 case class Date(year: Int, month: MonthOfYear, day: Int = 1) {
   def julian = Date.julian(year, month, day)
-  private lazy val dim = Date.daysInMonth(year, month)
-  def isEOM = day == dim
-  def eom = if (isEOM) this else Date(year, month, dim)
+ 
+  lazy val daysInMonth = Date.daysInMonth(year, month)
+  lazy val daysLeftInMonth = daysInMonth - day
+  
+  lazy val daysInYear = Date.daysInYear(year)
+  lazy val dayInYear = julian - Date.julian(year, Jan, 1) + 1
+  lazy val daysLeftInYear = daysInYear - dayInYear
+
+  lazy val isEOM = day == daysInMonth
+  def eom = if (isEOM) this else Date(year, month, daysInMonth)
+ 
   override def toString = day + "-" + month + "-" + year
+ 
   def asYYYYMMDD = year * 10000 + month.asInt * 100 + day
+
+  def subtractDays(i :Int) :Date = {
+    if (i == 0)
+      this
+    else if (i < 0)
+      addDays(-i)
+    else if (i >= dayInYear)
+      Date.EOY(year - 1).subtractDays(i - dayInYear)
+    else if (i >= day)
+      Date.EOM(year, MonthOfYear.previous(month)).subtractDays(i - day)
+    else
+      Date(year, month, day - i)
+  }
+  
+  def addDays(i :Int) :Date = {
+    if (i == 0)
+      this
+    else if (i < 0)
+	  subtractDays(-i)
+	else if (i >= daysLeftInYear)
+	  Date(year + 1, Jan).addDays(i - daysLeftInYear - 1)
+	else if (i > daysLeftInMonth)
+	  Date(year, MonthOfYear.next(month)).addDays(i - daysLeftInMonth - 1)
+	else
+	  Date(year, month, day + i)
+  }
 }
 
 object Date {
@@ -30,6 +65,11 @@ object Date {
   
   private val julianDaysShortcutUpper = 5000
   private lazy val julianDaysShortcut = (0 to julianDaysShortcutUpper) map (s => daysFromYears(s)) toArray
+  
+  def isEOM(year :Int, month :MonthOfYear, day :Int) = day == daysInMonth(year, month)
+  def EOM(year :Int, month :MonthOfYear) = Date(year, month, daysInMonth(year, month))
+
+  def EOY(year :Int) = Date(year, Dec, 31)
   
   def julian(year :Int, month :MonthOfYear, day :Int) = {
     val dfy = if (year <= julianDaysShortcutUpper) julianDaysShortcut(year) else daysFromYears(year)

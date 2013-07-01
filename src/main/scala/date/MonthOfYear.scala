@@ -33,4 +33,14 @@ object MonthOfYear {
 	  case 12 => Dec
 	  case _ => throw new IllegalArgumentException(i + " is not a valid month of the year")
   }
+  
+  def next(m :MonthOfYear) = m match {
+    case Dec => Jan
+    case m :MonthOfYear => fromInt(m.asInt + 1)
+  }
+  
+  def previous(m :MonthOfYear) = m match {
+    case Jan => Dec
+    case m :MonthOfYear => fromInt(m.asInt - 1)
+  }
 }
