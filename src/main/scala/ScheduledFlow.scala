@@ -1,4 +1,5 @@
 import Finance._
+import date._
 
 case class ScheduledFlow(
   accrual: Accrual,
@@ -18,7 +19,7 @@ object ScheduledFlow {
     val schedPrin = schedPmt - schedInt
     ScheduledFlow(accrual, payDay, beginBal, schedPrin, schedInt)
   }
-
+  
   def ioFlow(accrual: Accrual, payDay: PayDate, beginBal: Double, remainingTerm: Double) = {
     ScheduledFlow(accrual, payDay, beginBal, 0, beginBal * accrual.effaccrual)
   }

@@ -18,7 +18,7 @@ case class CashFlows(slices :List[RealizedFlow]) {
     val sumTtimeP = sum(timeWeightedPrincipal)
     sumTtimeP / sumPrincipal
   }
-  
-  
-  
+}
+
+object CashFlows {
 }

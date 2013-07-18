@@ -42,6 +42,70 @@ case class Date(year: Int, month: MonthOfYear, day: Int = 1) {
 	else
 	  Date(year, month, day + i)
   }
+  
+  def firstOfMonth = {
+    if (day == 1) { this } else { Date(year, month, 1) }
+  }
+  
+  def addYears(i :Int) :Date = {
+    if (i == 0) {
+      this
+    }
+    else if (i < 0) {
+      subtractYears(-i)
+    }
+    else {
+      Date(year + i, month, day)
+    }
+  }
+  
+  def subtractYears(i :Int) :Date = {
+    if (i == 0) {
+      this
+    }
+    else if (i < 0) {
+      addYears(-i)
+    }
+    else {
+      Date(year - i, month, day)
+    }
+  }
+  
+  def subtractMonths(i :Int) :Date = {
+    if (i == 0) {
+      this
+    }
+    else if (i < 0) {
+      addMonths(-i)
+    }
+    else if (i >= 12) {
+      subtractYears(i / 12).subtractMonths(i % 12)
+    }
+    else if (i >= month.asInt) {
+      subtractYears(1).addMonths(12 - i + month.asInt)
+    }
+    else {
+      Date(year, month.asInt - i, day)
+    }
+  }
+
+  def addMonths(i :Int) :Date = {
+    if (i == 0) {
+      this
+    }
+    else if (i < 0) {
+      subtractMonths(-i)
+    }
+    else if (i >= 12) {
+      addYears(i / 12).addMonths(i % 12)
+    }
+    else if (i + month.asInt > 12){
+      addYears(1).subtractMonths(12 - (i + month.asInt))
+    }
+    else {
+      Date(year, i + month.asInt, day)
+    }
+  }
 }
 
 object Date {
