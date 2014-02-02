@@ -119,7 +119,7 @@ class DateSuite extends FunSuite {
   test ("subtract months") {
     assert(Date(2013, Dec).subtractMonths(1) === Date(2013, Nov))
     assert(Date(2013, Dec).subtractMonths(12) === Date(2012, Dec))
-    assert(Date(2013, Dec).subtractMonths(24) === Date(2011, Nov))
+    assert(Date(2013, Dec).subtractMonths(25) === Date(2011, Nov))
 
     assert(Date(2013, Jan).subtractMonths(1) === Date(2012, Dec))
     assert(Date(2013, Jan).subtractMonths(2) === Date(2012, Nov))

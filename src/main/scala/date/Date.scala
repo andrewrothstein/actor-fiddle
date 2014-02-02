@@ -82,7 +82,7 @@ case class Date(year: Int, month: MonthOfYear, day: Int = 1) {
       subtractYears(i / 12).subtractMonths(i % 12)
     }
     else if (i >= month.asInt) {
-      subtractYears(1).addMonths(12 - i + month.asInt)
+      Date(year - 1, 12 + month.asInt - i, day)
     }
     else {
       Date(year, month.asInt - i, day)
@@ -100,7 +100,7 @@ case class Date(year: Int, month: MonthOfYear, day: Int = 1) {
       addYears(i / 12).addMonths(i % 12)
     }
     else if (i + month.asInt > 12){
-      addYears(1).subtractMonths(12 - (i + month.asInt))
+      Date(year + 1, i + month.asInt - 12, day)
     }
     else {
       Date(year, i + month.asInt, day)
