@@ -2,7 +2,6 @@ package date
 
 import org.scalatest._
 import date._
-import sun.security.tools.AddEntryDoneButtonListener
 
 class DateSuite extends FunSuite {
 
